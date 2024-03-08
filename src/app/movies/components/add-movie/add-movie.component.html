@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="addMovieTitle form-group">
+    <h2>Ajouter un film</h2>
+
+    <input
+      type="text"
+      name="movieSearch"
+      class="form-control"
+      [(ngModel)]="query"
+      [ngModelOptions]="{ standalone: true }"
+      [ngbTypeahead]="search"
+      [resultFormatter]="formatMovie"
+      [inputFormatter]="formatMovie"
+      (selectItem)="selectedItem($event)"
+      placeholder="Search movies..."
+    />
+  </div>
+  <app-movie-form
+    [selectedMovie]="selectedMovie"
+    [countryIds]="countryIds"
+    [isEditMode]="false"
+  ></app-movie-form>
+</div>

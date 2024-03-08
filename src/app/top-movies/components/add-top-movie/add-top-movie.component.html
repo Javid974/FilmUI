@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="addTopMovieTitle form-group">
+    <h2>Ajouter un Top</h2>
+
+    <app-year-select
+      [years]="years"
+      [selectedYear]="selectedYears"
+      (yearChange)="onYearChange($event)"
+    ></app-year-select>
+  </div>
+  <app-top-movie-form
+    [movies]="movies"
+    [years]="selectedYears"
+  ></app-top-movie-form>
+</div>

@@ -1,0 +1,44 @@
+<span
+  *ngIf="mode === 'topMovieMode'"
+  class="close"
+  style="float: right; cursor: pointer"
+  (click)="openModal(template)"
+  >&times;</span
+>
+<button
+  *ngIf="mode === 'movieMode'"
+  type="button"
+  (click)="openModal(template)"
+>
+  Supprimer
+</button>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Confirmation</h4>
+
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{
+      mode === "movieMode"
+        ? "Êtes-vous sûr de vouloir supprimer ce film ?"
+        : "Êtes-vous sûr de vouloir supprimer ce top ?"
+    }}
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="modalRef.hide()">
+      Non
+    </button>
+    <button type="button" class="btn btn-primary" (click)="confirm()">
+      Oui
+    </button>
+  </div>
+</ng-template>

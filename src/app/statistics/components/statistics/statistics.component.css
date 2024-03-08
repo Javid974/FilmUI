@@ -1,0 +1,44 @@
+.text-left {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.statistics {
+  margin: 0 auto;
+  /* Centre la grille horizontalement */
+  max-width: 1000px;
+  /* Définit une largeur maximale pour la grille */
+  font-family: Arial, sans-serif;
+}
+
+.statistics h2 {
+  color: #333;
+  font-size: 24px;
+}
+
+h3 {
+  color: #0073b1; /* Change the color according to your preference. */
+  text-align: center; /* Center align the title. */
+  font-size: 28px; /* Adjust the font size. */
+  font-family: Arial, sans-serif; /* Use a more appealing font. */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add some text shadow for depth. */
+  padding: 10px 0; /* Optional: Add some vertical padding. */
+  border-bottom: 2px solid #0073b1; /* Optional: Add a bottom border. */
+}
+
+.statistics .form-group {
+  margin-bottom: 30px;
+}
+
+.text-left {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.grey-row {
+  background-color: rgba(0, 0, 0, 0.05); /* Un gris clair */
+}
+
+.white-row {
+  background-color: white;
+}

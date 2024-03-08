@@ -1,0 +1,8 @@
+<select
+  class="form-control custom-select"
+  id="yearSelect"
+  [(ngModel)]="selectedYear"
+  (change)="onYearChange($event)"
+>
+  <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+</select>

@@ -1,0 +1,91 @@
+<form
+  [formGroup]="topMovieForm"
+  class="align-items-start"
+  (ngSubmit)="onSubmit()"
+>
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="form-group">
+    <label for="title">Titre :</label>
+
+    <input
+      type="text"
+      id="title"
+      name="title"
+      [(ngModel)]="topMovie.title"
+      required
+      [ngModelOptions]="{ standalone: true }"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': !topMovie.title }"
+      (ngModelChange)="updateTitleValidity()"
+    />
+    <div class="invalid-feedback">Le titre est obligatoire.</div>
+  </div>
+
+  <div class="form-group">
+    <div *ngFor="let movie of this.topMovie.movies; let j = index">
+      <div *ngIf="movie">
+        <table class="table table-bordered">
+          <tr>
+            <td class="large-cell">
+              <h2>{{ j + 1 }}. {{ movie.title }}</h2>
+            </td>
+            <td class="small-cell">
+              <button (click)="removeMovieFromList(j + 1)">
+                Retirer de la liste
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="form-group">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Titre du film</th>
+          <th class="centered-cell">Rang</th>
+          <th class="centered-cell">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movie of movies">
+          <td>
+            <strong>{{ movie.title }}</strong>
+          </td>
+          <td class="center-content">
+            <input
+              type="number"
+              min="1"
+              max="15"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="movieRanks[movie.id]"
+            />
+          </td>
+          <div class="center-content">
+            <button
+              type="button"
+              (click)="addMovieToList(movie, movieRanks[movie.id])"
+            >
+              Ajouter à la liste
+            </button>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-right">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!topMovieForm.valid"
+    >
+      Sauvegarder Top
+    </button>
+  </div>
+</form>

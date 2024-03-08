@@ -1,0 +1,15 @@
+{
+    "/v2/alpha": {
+      "target": "https://restcountries.com",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {"^/v2/alpha" : "/v2/alpha"}
+    },
+    "/api": {
+        "target": "http://localhost:4200",
+        "secure": false,
+        "pathRewrite": {
+          "^/api": ""
+        }
+      }
+  }

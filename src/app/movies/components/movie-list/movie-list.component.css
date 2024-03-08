@@ -1,0 +1,130 @@
+.movie-list {
+  margin: 0 auto;
+  /* Centre la grille horizontalement */
+  max-width: 1400px;
+  /* Définit une largeur maximale pour la grille */
+  font-family: Arial, sans-serif;
+}
+
+.movie-list h2 {
+  color: #333;
+  font-size: 24px;
+}
+
+.movie-list .form-group {
+  margin-bottom: 30px;
+}
+
+.movie-list label {
+  display: block;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.movie-list select {
+  width: 200px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+
+.movie-list .btn-space-top {
+  margin-top: 30px;
+
+}
+
+.btn-space-right {
+  margin-right: 10px;
+}
+
+.container {
+
+  background-color: #ffffff;
+  /* Couleur de fond blanche */
+  margin-top: 0;
+
+  max-width: 1400px;
+  /* Annule la marge par défaut */
+}
+
+.bottomContainer {
+  margin-top: 0;
+
+  max-width: 1400px;
+  /* Annule la marge par défaut */
+
+}
+
+.text-left {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.custom-select {
+
+  font-size: 16px;
+  /* Augmente la taille de la police */
+  color: #4a4a4a;
+  /* Change la couleur du texte */
+  border: 1px solid #ccc;
+  /* Ajoute une bordure */
+  border-radius: 5px;
+  /* Arrondit les coins */
+}
+
+table {
+  margin-bottom: 0;
+  width: 100%;
+  /* annule complètement le margin-bottom natif */
+
+}
+
+h3 {
+  color: #0073b1;
+  /* Change the color according to your preference. */
+  text-align: center;
+  /* Center align the title. */
+  font-size: 28px;
+  /* Adjust the font size. */
+  font-family: Arial, sans-serif;
+  /* Use a more appealing font. */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /* Optional: Add some text shadow for depth. */
+  padding: 10px 0;
+  /* Optional: Add some vertical padding. */
+  border-bottom: 2px solid #0073b1;
+  /* Optional: Add a bottom border. */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+  /* Change la couleur de fond de la ligne au survol */
+  cursor: pointer;
+  /* Change le curseur pour indiquer qu'il s'agit d'un élément cliquable */
+}
+
+
+.btn-primary {
+  background-color: #003366;
+}
+
+.table .title {
+  width: 60%;
+}
+
+.table .note {
+  width: 13.33%;
+  text-align: center;
+}
+
+.no-border {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: 1px solid black;
+  /* Garder la bordure de gauche */
+}

@@ -1,0 +1,84 @@
+<div class="statistics">
+  <h2 class="text-left">Statistiques</h2>
+  <div class="form-group">
+    <app-year-select [years]="years" [selectedYear]="selectedYears"
+      (yearChange)="onYearChange($event)"></app-year-select>
+  </div>
+  <div class="alert alert-info" *ngIf="
+      statistics !== null &&
+      objectKeys(statistics.movieCountByRegion).length == 0
+    ">
+    <strong>Aucun film trouvé</strong>
+  </div>
+  <div *ngIf="objectKeys(statistics.movieCountByRegion).length > 0">
+    <h3>Films par pays</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="header-color text-center align-middle">
+                <tr>
+                  <th>Region</th>
+                  <th>Pays</th>
+                  <th>Nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="
+                    let region of objectKeys(statistics.movieCountByRegion)
+                  ">
+                  <tr [class.grey-row]="true">
+                    <td>
+                      <b>{{ getRegionName(region) }}</b>
+                    </td>
+                    <td></td>
+                    <td>{{ statistics.movieCountByRegion[region] }}</td>
+                  </tr>
+                  <ng-container *ngFor="let country of statistics.countriesByRegion[region]">
+                    <tr [class.white-row]="true">
+                      <td></td>
+                      <td>{{ country.native_name }}</td>
+                      <td>
+                        {{ statistics.countryCount[country.iso_3166_1].item2 }}
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="objectKeys(statistics.supportCount).length > 0">
+    <h3>Films par support</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="header-color text-center align-middle">
+                <tr>
+                  <th>Support</th>
+                  <th>Nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let support of objectKeys(statistics.supportCount)">
+                  <tr>
+                    <td>
+                      <b>{{ support }}</b>
+                    </td>
+                    <td>{{ statistics.supportCount[support] }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

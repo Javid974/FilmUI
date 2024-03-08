@@ -1,0 +1,99 @@
+<div class="movie-list">
+  <h2 class="text-left">Liste des films</h2>
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="form-group">
+    <app-year-select [years]="years" [selectedYear]="selectedYears"
+      (yearChange)="onYearChange($event)"></app-year-select>
+  </div>
+  <div class="alert alert-info" *ngIf="movies !== null && movies.length === 0">
+    <strong>Aucun film trouvé</strong>
+  </div>
+  <div *ngIf="movies.length > 0">
+    <h3>Films à voir</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+              <thead class="header-color text-center align-middle">
+                <tr>
+                  <th>Mois</th>
+                  <th>Titre</th>
+                  <th>Titre Original</th>
+                  <th>Réalisateur</th>
+                  <th>Genre</th>
+                  <th>Pays</th>
+                  <th>Support</th>
+                  <th>infos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="align-middle" *ngFor="let movie of movies" (click)="onRowClick(movie)">
+                  <td>{{ getFormattedDate(movie.viewingDate) }}</td>
+                  <td>{{ movie.title }}</td>
+                  <td>{{ movie.originalTitle }}</td>
+                  <td>{{ getDirectorsList(movie.directors) }}</td>
+                  <td>{{ getGenresList(movie.genres) }}</td>
+                  <td>{{ getCountriesList(movie.countries) }}</td>
+                  <td>{{ getSupportName(movie.support) }}</td>
+                  <td>{{ movie.additionalInfos }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right"><b>Nombre de films :</b> {{ movies.length }}</div>
+  <div>
+    <div *ngIf="mightWatchMovies.length > 0">
+      <h3>Films à voir peut être</h3>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped table-hover">
+                <thead class="header-color text-center align-middle">
+                  <tr>
+                    <th>Titre</th>
+                    <th>Imdb Note</th>
+                    <th>Senscritique Note</th>
+                    <th>Note moyenne</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let movie of mightWatchMovies" (click)="onRowClick(movie)">
+                    <td class="title">{{ movie.title }}</td>
+                    <td class="note">{{ movie.imdbNote }}</td>
+                    <td class="note">{{ movie.senscritiqueNote }}</td>
+                    <td class="note">{{ movie.averageNote }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottomContainer">
+    <div class="row">
+      <div class="col text-left">
+        <app-file-import (onFile)="onFileSelected($event)"></app-file-import>
+        <app-download-json (download)="handleDownload()"></app-download-json>
+      </div>
+
+      <div class="col text-right">
+        <button class="btn btn-primary btn-space-top btn-space-right" routerLink="/movie/upload">
+          Charger un fichier
+        </button>
+        <button class="btn btn-primary btn-space-top" (click)="addMovie()">
+          Ajouter un film
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

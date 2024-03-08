@@ -1,0 +1,26 @@
+.director-list {
+    margin: 0 auto;
+    /* Centre la grille horizontalement */
+    max-width: 1000px;
+    /* Définit une largeur maximale pour la grille */
+    font-family: Arial, sans-serif;
+  }
+  
+  .director-list h2 {
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .text-left {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+
+  a p {
+    color: black;  /* changez cela à la couleur que vous voulez */
+  }
+  

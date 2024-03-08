@@ -1,0 +1,59 @@
+<div class="topMovies">
+  <h2 class="text-left">Tops</h2>
+  <div class="form-group">
+    <app-year-select [years]="years" [selectedYear]="selectedYears"
+      (yearChange)="onYearChange($event)"></app-year-select>
+  </div>
+  <div class="container">
+    <div *ngIf="topMovies" class="movie-list">
+      <div *ngFor="let top of topMovies; let i = index" class="movie-item">
+        <h1>
+          <a [routerLink]="['/edit-top-movie', top.years, top.id]">{{
+            top.title
+            }}</a>
+          <app-confirmation-dialog [mode]="'topMovieMode'"
+            (confirmed)="deleteTopMovie(top.id)"></app-confirmation-dialog>
+          <!-- <span class="close" style="float: right">&times;</span> -->
+        </h1>
+
+        <div class="movie-sublist">
+          <div *ngFor="let movie of top.movies; let j = index">
+            <div class="row">
+              <div class="col-md-2">
+                <img *ngIf="!failedImagesMap.get(i)?.includes(j)" [src]="getImage(movie.posterPath)"
+                  (error)="handleImageError(i, j)" class="img-fluid" alt="Description de l'image" />
+              </div>
+              <div class="col-md-10">
+                <h2>{{ j + 1 }}. {{ movie.title }}</h2>
+                {{ movie.originalTitle }}
+                <p>
+                  Sortie :
+                  {{
+                  movie.releaseDate
+                  ? getFormattedDate(movie.releaseDate.toString())
+                  : "Date not available"
+                  }}.
+                  {{ getNamesList(movie.genres) }}
+                </p>
+                <p>Film de {{ getNamesList(movie.directors) }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottomContainer">
+    <div class="row align-items-center">
+      <div class="col text-left">
+        <app-file-import (onFile)="onFileSelected($event)"></app-file-import>
+        <app-download-json (download)="handleDownload()"></app-download-json>
+      </div>
+      <div class="col text-right">
+        <button class="btn btn-primary btn-space" (click)="addTopMovie()">
+          Ajouter un Top
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

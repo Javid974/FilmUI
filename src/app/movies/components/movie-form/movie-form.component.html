@@ -1,0 +1,258 @@
+<form [formGroup]="movieForm" class="align-items-start" (ngSubmit)="onSubmit()">
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div class="form-group">
+    <label for="title">Titre :</label>
+
+    <input
+      type="text"
+      id="title"
+      name="title"
+      [(ngModel)]="selectedMovie.title"
+      [ngModelOptions]="{ standalone: true }"
+      required
+      class="form-control"
+      [ngClass]="{ 'is-invalid': !selectedMovie.title }"
+      (ngModelChange)="updateTitleValidity()"
+    />
+    <div class="invalid-feedback">Le titre est obligatoire.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="originalTitle">Titre original :</label>
+    <input
+      type="text"
+      [(ngModel)]="selectedMovie.originalTitle"
+      [ngModelOptions]="{ standalone: true }"
+      id="originalTitle"
+      name="originalTitle"
+      class="form-control"
+      required
+      [ngClass]="{ 'is-invalid': !selectedMovie.originalTitle }"
+      (ngModelChange)="updateOriginalTitleValidity()"
+    />
+    <div class="invalid-feedback">Le titre original est obligatoire.</div>
+  </div>
+
+  <div class="form-group" formArrayName="directors">
+    <label for="directors0">Réalisateurs :</label>
+    <div
+      *ngFor="let director of directorsForm.controls; let i = index"
+      class="input-group"
+    >
+      <input
+        type="text"
+        id="director{{ i }}"
+        class="form-control"
+        [formControlName]="i"
+        placeholder="Nom du réalisateur"
+        (input)="updateDirectorList($event.target, i)"
+        [class.is-invalid]="directorsForm.controls[i].invalid"
+      />
+      <div class="input-group-append">
+        <button
+          id="deleteDirector"
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="removeDirector(i)"
+          *ngIf="directorsForm.length > 1"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+      <div *ngIf="directorsForm.controls[i].invalid" class="invalid-feedback">
+        Le nom du réalisateur est requis.
+      </div>
+    </div>
+    <div class="text-right">
+      <button
+        type="button"
+        id="addDirector"
+        class="btn btn-secondary btn-sm"
+        (click)="addDirector()"
+      >
+        Ajouter réalisateur
+      </button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="releaseDate">Date de sortie :</label>
+
+    <input
+      type="date"
+      [ngModel]="selectedMovie.releaseDate | date : 'yyyy-MM-dd'"
+      (ngModelChange)="updateReleaseDateValidity($event)"
+      [ngModelOptions]="{ standalone: true }"
+      id="releaseDate"
+      name="releaseDate"
+      class="form-control"
+      required
+      [ngClass]="{ 'is-invalid': !selectedMovie.releaseDate }"
+    />
+
+    <div class="invalid-feedback">Veuillez sélectionner une date.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="viewingDate">Date de visionnement :</label>
+    <input
+      type="text"
+      [(bsValue)]="selectedMovie.viewingDate"
+      [bsConfig]="{ dateInputFormat: 'YYYY-MM', minMode: 'month' }"
+      bsDatepicker
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description :</label>
+    <textarea
+      [(ngModel)]="selectedMovie.overview"
+      [ngModelOptions]="{ standalone: true }"
+      id="description"
+      name="description"
+      class="form-control"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <label for="additionalInfo">Informations suplementaires :</label>
+    <input
+      type="text"
+      id="additionalInfo"
+      name="additionalInfo"
+      [(ngModel)]="selectedMovie.additionalInfos"
+      [ngModelOptions]="{ standalone: true }"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="support">Support :</label>
+    <select
+      id="support"
+      [(ngModel)]="selectedMovie.support"
+      [ngModelOptions]="{ standalone: true }"
+      name="support"
+      class="form-control"
+    >
+      <option *ngFor="let support of supports" [ngValue]="support.value">
+        {{ support.text }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="countries">Nationalités :</label>
+    <ng-multiselect-dropdown
+      [placeholder]="'Sélectionner des pays...'"
+      [data]="countries"
+      name="countries"
+      [(ngModel)]="selectedMovie.countries"
+      [ngModelOptions]="{ standalone: true }"
+      [settings]="dropdownSettings"
+      [class.is-invalid]="movieForm.controls['countries'].invalid"
+      itemValueField="iso_3166_1"
+      itemTextField="native_name"
+      (onSelect)="onCountrySelected()"
+      (onDeSelect)="onCountryDeselected()"
+      (ngModelChange)="updateCountriesValidity()"
+    >
+    </ng-multiselect-dropdown>
+
+    <div class="invalid-feedback">Veuillez sélectionner au moins un pays.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="genre">Genres :</label>
+
+    <div
+      class="genre-container"
+      style="column-count: 2"
+      [class.is-invalid]="movieForm.controls['genres'].invalid"
+    >
+      <div *ngFor="let genre of genres" class="form-check">
+        <label class="form-check-label">
+          <input
+            type="checkbox"
+            [value]="genre.id"
+            name="genres"
+            [checked]="isGenreSelected(genre)"
+            (change)="updateSelectedGenres($event, genre)"
+          />
+          {{ genre.name }}
+        </label>
+      </div>
+    </div>
+    <div *ngIf="movieForm.controls['genres'].invalid" class="invalid-feedback">
+      Vous devez sélectionner au moins un genre.
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="mightWatch">
+        <input
+          type="checkbox"
+          id="mightWatch"
+          name="mightWatch"
+          [(ngModel)]="selectedMovie.mightWatch"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-check-input"
+        />
+        Film à voir peut-être ?
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="selectedMovie.mightWatch" class="form-group">
+    <label for="imdbNote">IMDb Note :</label>
+    <input
+      type="number"
+      min="0"
+      max="10"
+      step="0.1"
+      id="imdbNote"
+      name="imdbNote"
+      [(ngModel)]="selectedMovie.imdbNote"
+      [ngModelOptions]="{ standalone: true }"
+      (input)="limitImdbInput($event)"
+      class="form-control"
+    />
+  </div>
+
+  <div *ngIf="selectedMovie.mightWatch" class="form-group">
+    <label for="senscritiqueNote">Note SensCritique :</label>
+    <input
+      type="number"
+      min="0"
+      max="10"
+      step="0.1"
+      id="senscritiqueNote"
+      name="senscritiqueNote"
+      [(ngModel)]="selectedMovie.senscritiqueNote"
+      [ngModelOptions]="{ standalone: true }"
+      (input)="limitSenscritiqueInput($event)"
+      class="form-control"
+    />
+  </div>
+
+  <div class="text-right">
+    <button
+      *ngIf="!isEditMode; else updateButton"
+      type="submit"
+      class="btn btn-primary btn-space"
+      [disabled]="movieForm.invalid"
+    >
+      Ajouter
+    </button>
+    <ng-template #updateButton>
+      <button
+        type="submit"
+        class="btn btn-primary btn-space"
+        [disabled]="movieForm.invalid"
+      >
+        Mettre à jour
+      </button>
+    </ng-template>
+  </div>
+</form>

@@ -1,0 +1,51 @@
+ .director-detail{
+    margin: 0 auto;
+    max-width: 1000px;
+    font-family: Arial, sans-serif;
+ }
+
+.container {
+    padding-top: 50px;
+    width: 90%;
+    /* Réduit la largeur du conteneur à 90% de la largeur de la fenêtre */
+    margin-left: 0;
+    /* Supprime la marge automatique à gauche */
+    margin-right: auto;
+    /* Conserve la marge automatique à droite pour centrer le conteneur */
+}
+
+h1 {
+    font-size: 3em;
+}
+
+hr {
+    border-top: 1px solid #000;
+    /* Définit la couleur et l'épaisseur de la ligne de séparation */
+}
+
+img {
+    width: 150px; /* Définissez la largeur que vous voulez */
+    height: auto; /* Pour maintenir les proportions de l'image */
+  }
+
+  .col-md-4 {
+    width: 17.33333333%;
+  }
+
+  .title{
+    font-size: 24px;
+    line-height: 30px;
+    color: rgb(26, 26, 26);
+    margin: 0px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-weight: 700;
+  }
+
+  .content {
+    color: rgb(166, 170, 175);
+  }
+
+  .gap{
+    gap: 12px;
+    margin-bottom: 20px;
+  }

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <img
+        *ngIf="isImageValid"
+        [src]="imageUrl"
+        class="img-fluid"
+        alt="Poster de {{ movie.title }}"
+      />
+    </div>
+    <div class="col-md-8">
+      <h1>{{ movie.title }}</h1>
+      <h4>{{ movie.originalTitle }}</h4>
+      <hr />
+      <p>
+        <strong>Réalisateur(s) :</strong> {{ getNamesList(movie.directors) }}
+      </p>
+      <p><strong>Genre(s) :</strong> {{ getNamesList(movie.genres) }}</p>
+      <p><strong>Pays :</strong> {{ getCountriesList(movie.countries) }}</p>
+      <p>
+        <strong>Date de sortie :</strong>
+        {{
+          movie.releaseDate
+            ? getFormattedDate(movie.releaseDate.toString())
+            : "Date not available"
+        }}
+      </p>
+      <p><strong>Synopsis :</strong> {{ movie.overview }}</p>
+      <button (click)="editMovie(movie.uuid)">Editer</button>
+      <app-confirmation-dialog
+        (confirmed)="deleteMovie(movie.uuid)"
+      ></app-confirmation-dialog>
+    </div>
+  </div>
+</div>

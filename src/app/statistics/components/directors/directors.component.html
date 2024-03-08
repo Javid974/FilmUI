@@ -1,0 +1,14 @@
+<div class="director-list">
+  <h2 class="text-left">Liste des realisteurs</h2>
+  <div class="col text-left">
+    <app-file-import (onFile)="onFileSelected($event)"></app-file-import>
+    <app-download-json (download)="handleDownload()"></app-download-json>
+  </div>
+
+  <div *ngFor="let item of directorsMoviesCount" style="border-bottom: 1px solid grey; padding: 10px">
+    <a [routerLink]="['/director', item.directorId]">
+      <h3>{{ item.directorName }}</h3>
+      <p>Nombre de films vu: {{ item.count }}</p>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+.topMovies {
+  margin: 0 auto;
+  /* Centre la grille horizontalement */
+  max-width: 1000px;
+  /* Définit une largeur maximale pour la grille */
+  font-family: Arial, sans-serif;
+}
+
+.text-left {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.topMovies h2 {
+  color: #333;
+  font-size: 24px;
+}
+
+.container {
+
+  padding-top: 50px;
+
+  /* Réduit la largeur du conteneur à 90% de la largeur de la fenêtre */
+  margin-left: 0;
+  /* Supprime la marge automatique à gauche */
+  margin-right: auto;
+  /* Conserve la marge automatique à droite pour centrer le conteneur */
+}
+
+.bottomContainer {
+  margin-top: 0;
+
+  max-width: 1400px;
+  /* Annule la marge par défaut */
+
+}
+
+
+.movie-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-item {
+  width: 100%;
+}
+
+.movie-item h1 {
+  font-size: 3em;
+  /* Adjust this value for larger or smaller text */
+  border-bottom: 1px solid black;
+  /* This adds a line under each title */
+  padding-bottom: 10px;
+  /* This adds space under each title */
+  margin-bottom: 20px;
+  /* This adds space between titles */
+  width: 100%;
+}
+
+.movie-sublist {
+  list-style: none;
+  /* This removes the bullets from the list */
+  padding-left: 0;
+  /* This removes the default padding from the list */
+}
+
+.row {
+  margin-bottom: 20px;
+  /* Ajustez cette valeur pour augmenter ou diminuer l'espace */
+}
+
+h1 a {
+  text-decoration: none;
+  color: inherit;
+  /* prend la couleur du h1 */
+}
+
+h2 {
+  margin-top: 1em;
+}
+
+h3 {
+  margin: 0.5em 0;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+button {
+  margin: 0.5em 0;
+}
+
+img {
+  width: 150px;
+  /* Définissez la largeur que vous voulez */
+  height: auto;
+  /* Pour maintenir les proportions de l'image */
+}

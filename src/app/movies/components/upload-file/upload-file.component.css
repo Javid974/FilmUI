@@ -1,0 +1,19 @@
+.container {
+    padding-top: 20px;
+  }
+
+  .custom-file-upload {
+    cursor: pointer;
+    color: #007bff; /* la couleur par défaut des liens de bootstrap */
+    text-decoration: underline;
+  }
+  
+  .custom-file-upload:hover {
+    color: #0056b3; /* la couleur de survol des liens de bootstrap */
+  }
+  
+  .error-message, .alert {
+    margin-top: 20px;
+  }
+  
+  

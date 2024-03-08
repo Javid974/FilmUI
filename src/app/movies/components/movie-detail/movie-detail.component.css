@@ -1,0 +1,32 @@
+.container {
+
+    padding-top: 50px;
+    width: 90%;
+    /* Réduit la largeur du conteneur à 90% de la largeur de la fenêtre */
+    margin-left: 0;
+    /* Supprime la marge automatique à gauche */
+    margin-right: auto;
+    /* Conserve la marge automatique à droite pour centrer le conteneur */
+}
+
+.row {
+    margin-bottom: 20px;
+    /* Ajustez cette valeur pour augmenter ou diminuer l'espace */
+}
+
+h1 {
+    font-size: 3em;
+    /* Augmente la taille du titre du film */
+}
+
+hr {
+    border-top: 1px solid #000;
+    /* Définit la couleur et l'épaisseur de la ligne de séparation */
+}
+
+img {
+    width: 700px;
+    /* Définissez la largeur que vous voulez */
+    height: auto;
+    /* Pour maintenir les proportions de l'image */
+}
