@@ -388,16 +388,53 @@ export class MovieFormComponent implements OnInit {
     }
   }
 
+  private getErrorMessage(error: unknown): string {
+    if (typeof error === 'string') {
+      return error;
+    }
+
+    if (error instanceof Error) {
+      return error.message;
+    }
+
+    const apiError = (error as any)?.error;
+
+    if (apiError?.errors?.length) {
+      const messages = apiError.errors
+        .map((item: { message?: string }) => item.message)
+        .filter((message: string | undefined) => !!message)
+        .join(' ');
+
+      if (messages) {
+        return messages;
+      }
+    }
+
+    if (apiError?.message) {
+      return apiError.message;
+    }
+
+    return "Une erreur s'est produite.";
+  }
+
+  private showError(error: unknown): void {
+    this.errorMessage = this.getErrorMessage(error);
+    toastr.error(this.errorMessage, '', {
+      positionClass: 'toast-top-center',
+      timeOut: 5000,
+    });
+  }
+
   addMovie() {
     // Code to add a new movie
+    this.errorMessage = '';
     this.addRegion()
       .pipe(
         concatMap(() => {
           if (!this.movieForm.invalid) {
-
             return this.moviesService.save(this.selectedMovie);
           } else {
-            return (this.errorMessage = 'Invalid form');
+            return throwError(() => 'Invalid form');
           }
         })
       )
@@ -413,11 +450,7 @@ export class MovieFormComponent implements OnInit {
           this.resetForm();
         },
         error: (e) => {
-          this.errorMessage = e;
-          toastr.error("Une erreur s'est produite.", '', {
-            positionClass: 'toast-top-center',
-            timeOut: 2000,
-          });
+          this.showError(e);
         },
       });
   }
@@ -425,6 +458,7 @@ export class MovieFormComponent implements OnInit {
   updateMovie() {
     // Code to update existing movie
     if (!this.movieForm.invalid) {
+      this.errorMessage = '';
       this.moviesService.update(this.selectedMovie).subscribe({
         // Handle response here
         next: (v) => {
@@ -436,11 +470,7 @@ export class MovieFormComponent implements OnInit {
         },
         complete: () => { },
         error: (e) => {
-          this.errorMessage = e;
-          toastr.error("Une erreur s'est produite.", '', {
-            positionClass: 'toast-top-center',
-            timeOut: 2000,
-          });
+          this.showError(e);
         },
       });
     }

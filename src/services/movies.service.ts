@@ -16,6 +16,35 @@ export class MoviesService {
 
   constructor(private http: HttpClient) { }
 
+  private buildErrorMessage(error: HttpErrorResponse): string {
+    if (error.error instanceof ErrorEvent) {
+      return `Une erreur s'est produite : ${error.error.message}`;
+    }
+
+    const apiError = error.error;
+
+    if (typeof apiError === 'string') {
+      return `Erreur ${error.status}: ${apiError}`;
+    }
+
+    if (apiError?.errors?.length) {
+      const messages = apiError.errors
+        .map((item: { message?: string }) => item.message)
+        .filter((message: string | undefined) => !!message)
+        .join(' ');
+
+      if (messages) {
+        return messages;
+      }
+    }
+
+    if (apiError?.message) {
+      return apiError.message;
+    }
+
+    return `Erreur ${error.status}: Une erreur inconnue s'est produite.`;
+  }
+
   getAll(): Observable<Movie[]> {
     return this.http.get<Movie[]>(`${this.apiUrl}/movies`);
   }
@@ -26,9 +55,7 @@ export class MoviesService {
 
     return this.http.post(`${this.apiUrl}/movies/upload`, formData).pipe(
       catchError((errorResponse: HttpErrorResponse) => {
-        let errorMessage: string;
-        errorMessage = `Code d'erreur : ${errorResponse.status}\nMessage : ${errorResponse.error}`;
-        return throwError(() => errorMessage); // Rethrow so downstream consumers can handle as well
+        return throwError(() => this.buildErrorMessage(errorResponse));
       })
     );
   }
@@ -39,9 +66,7 @@ export class MoviesService {
 
     return this.http.post(`${this.apiUrl}/movies/import`, formData).pipe(
       catchError((errorResponse: HttpErrorResponse) => {
-        let errorMessage: string;
-        errorMessage = `Code d'erreur : ${errorResponse.status}\nMessage : ${errorResponse.error}`;
-        return throwError(() => errorMessage); // Rethrow so downstream consumers can handle as well
+        return throwError(() => this.buildErrorMessage(errorResponse));
       })
     );
   }
@@ -53,17 +78,7 @@ export class MoviesService {
   getByYears(years: number | undefined): Observable<Movie[]> {
     return this.http.get<Movie[]>(`${this.apiUrl}/movies/years/${years}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage: string;
-        if (error.error instanceof ErrorEvent) {
-          // Erreur de client
-          errorMessage = `Une erreur s'est produite : ${error.error.message}`;
-        } else {
-          // Erreur côté serveur
-          const errorResponse: HttpErrorResponse = error;
-          errorMessage = `Code d'erreur : ${error.status}\nMessage : ${errorResponse.error}`;
-        }
-
-        return throwError(() => errorMessage);
+        return throwError(() => this.buildErrorMessage(error));
       })
     );
   }
@@ -84,16 +99,7 @@ export class MoviesService {
   save(movie: Movie): Observable<Movie> {
     return this.http.post<Movie>(`${this.apiUrl}/movies`, movie).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage: string;
-        if (error.error instanceof ErrorEvent) {
-          // Erreur de client
-          errorMessage = `Une erreur s'est produite : ${error.error.message}`;
-        } else {
-          // Erreur du serveur
-          const errorResponse: HttpErrorResponse = error;
-          errorMessage = `Erreur ${error.status}: ${errorResponse.error}`;
-        }
-        return throwError(() => errorMessage);
+        return throwError(() => this.buildErrorMessage(error));
       })
     );
   }
